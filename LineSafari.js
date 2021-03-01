@@ -12,8 +12,8 @@ function line(grid) {
       }
     }
     function stepForward(row, column, history){
-    if (history.indexOf(JSON.stringify([row, column])) === -1){
-        history.push(JSON.stringify([row, column]));
+    if (history.indexOf(JSON.stringify([row, column])) === -1){     //check if the path has crossed back on itself, if so, that brach stops
+        history.push(JSON.stringify([row, column])); 
         let currentSymbol = grid[row][column];
         console.log(row, column, currentSymbol, history)
         
@@ -103,13 +103,13 @@ function line(grid) {
                 }
             }else if(currentSymbol === "+"){
                 if(grid[row][column + 1] !== undefined){ 
-                    if(grid[row][column + 1] !== " "){console.log('test')
+                    if(grid[row][column + 1] !== " "){
                         orientation = "right";
                         stepForward(row, column + 1, history);
                     }
                 }
                 if(grid[row][column - 1] !== undefined){ 
-                    if (grid[row][column - 1] !== " "){console.log("left at +")
+                    if (grid[row][column - 1] !== " "){console.log("left at +", row, column, history)
                             orientation = "left";
                             stepForward(row, column - 1, history);
                     }
@@ -139,7 +139,7 @@ function line(grid) {
                 }
             }
         }
-    }
+    }else{console.log ("branch ends")}
     }         
     stepForward(currentRow, currentColumn, globalHistory);
     if (solutions.length === 1){
